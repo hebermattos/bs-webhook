@@ -11,3 +11,5 @@ $app->post('/api/robots', function () {
 
 
 $app->handle();
+
+?>
