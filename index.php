@@ -5,8 +5,8 @@ use Phalcon\Mvc\Micro;
 $app = new Micro();
 
 
-$app->post('/api/robots', function () {
-
+$app->get('/api/test', function ($data) {
+    echo json_encode($data);
 });
 
 
