@@ -21,7 +21,7 @@ $app->post('/bswebhook/', function ($data) {
 
 $app->notFound(function () use ($app) {
     $app->response->setStatusCode(404, "Not Found")->sendHeaders();
-    echo 'This is crazy, but this page was not found!';
+    echo 'page not found!';
 });
 
 $app->handle();
