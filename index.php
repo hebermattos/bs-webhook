@@ -4,8 +4,8 @@ use Phalcon\Mvc\Micro;
 
 $app = new Micro();
 
-$app->get('/api/test/', function () {
-    echo "default";
+$app->get('/', function () {
+    echo 'home';
 });
 
 $app->get('/api/test/{data}', function ($data) {
@@ -18,5 +18,3 @@ $app->notFound(function () use ($app) {
 });
 
 $app->handle();
-
-
