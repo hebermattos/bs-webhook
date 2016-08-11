@@ -4,9 +4,12 @@ use Phalcon\Mvc\Micro;
 
 $app = new Micro();
 
+$app->get('/api/test/', function () {
+    echo "default";
+});
 
 $app->get('/api/test/{data}', function ($data) {
-    echo json_encode($data);
+    echo $data;
 });
 
 $app->notFound(function () use ($app) {
