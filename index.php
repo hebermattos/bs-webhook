@@ -1,5 +1,12 @@
 <?php
 
+require_once 'vendor/autoload.php';
+
+BoletoSimples::configure(array(
+  "environment" => 'production', // default: 'sandbox'
+  "access_token" => 'access-token'
+));
+
 use Phalcon\Mvc\Micro;
 
 $app = new Micro();
@@ -9,6 +16,10 @@ $app->get('/', function () {
 });
 
 $app->get('/api/test/{data}', function ($data) {
+    echo $data;
+});
+
+$app->post('/bswebhook/', function ($data) {
     echo $data;
 });
 
