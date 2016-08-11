@@ -4,6 +4,11 @@ use Phalcon\Mvc\Micro;
 
 $app = new Micro();
 
+$app->get('/', function () {
+    echo "welcome....");
+});
+
+
 
 $app->get('/api/test/{data}', function ($data) {
     echo json_encode($data);
