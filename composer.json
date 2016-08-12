@@ -1,7 +1,0 @@
-{
-  "minimum-stability": "dev",
-  "prefer-stable" : true,
-  "require": {
-    "boletosimples/boletosimples": "dev-master"
-  }
-}
