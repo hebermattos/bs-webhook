@@ -17,8 +17,10 @@ $app->post('/bswebhook', function () use ($app) {
     
     $request = new \Phalcon\Http\Request();
     $header = $request->getHeader('HTTP_X_HUB_SIGNATURE');
+    $headers = $request->getHeaders();
 
     echo 'h: '.$header;
+    echo 'hs: '.$headers;
 
     //$body = $app->request->getJsonRawBody();
 
