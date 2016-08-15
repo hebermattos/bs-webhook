@@ -15,7 +15,7 @@ $app->get('/bswebhook/{data}', function ($data) {
 
 $app->post('/bswebhook', function () use ($app) {
     
-    $header = $app->request->getHeader('HTTP_X_HUB_SIGNATURE');
+    $header = $app->request->getHeaders();
 
     echo $header;
 
