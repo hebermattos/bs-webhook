@@ -23,7 +23,8 @@ $app->post('/bswebhook', function () use ($app) {
     
     $response = new Response();
     
-    echo "header: ".$header." hash: ".$hashedBody;
+    echo $header;
+    echo $body;
 
 });
 
