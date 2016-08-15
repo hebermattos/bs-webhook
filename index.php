@@ -8,7 +8,7 @@ $app->get('/', function () {
     echo 'bswebhook!';
 });
 
-$app->get('/bswebhook', function ($data) {
+$app->get('/bswebhook/{data}', function ($data) {
     echo 'bswebhook: '.$data;
 });
 
