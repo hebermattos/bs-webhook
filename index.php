@@ -17,15 +17,13 @@ $app->post('/bswebhook', function () use ($app) {
     
     $header = $app->request->getHeader('HTTP_X_HUB_SIGNATURE');
 
+    echo $header;
+
     $body = $app->request->getJsonRawBody();
 
-    $hashedBody = hash_hmac('sha1', $body, 'a6e3e7990d39c413862d7fcc126f57c418d7cf6dbf18e2da8eb3dea738a17349');
-    
-    $response = new Response();
-    
-    echo $header;
     echo $body;
 
+    //$hashedBody = hash_hmac('sha1', $body, 'a6e3e7990d39c413862d7fcc126f57c418d7cf6dbf18e2da8eb3dea738a17349');
 });
 
 $app->notFound(function () use ($app) {
