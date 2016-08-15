@@ -21,7 +21,7 @@ $app->post('/bswebhook', function () use ($app) {
 
     $body = $app->request->getJsonRawBody();
 
-    echo json_decode($body);
+    echo json_encode($body);
 
     //$hashedBody = hash_hmac('sha1', $body, 'a6e3e7990d39c413862d7fcc126f57c418d7cf6dbf18e2da8eb3dea738a17349');
 });
