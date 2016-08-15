@@ -15,24 +15,19 @@ $app->get('/bswebhook/{data}', function ($data) {
 
 $app->post('/bswebhook', function () use ($app) {
     
-    //$request = new \Phalcon\Http\Request();
-    //$header = $request->getHeader('HTTP_X_HUB_SIGNATURE');
-    //$headers = $request->getHeaders();
+    $request = new \Phalcon\Http\Request();
+    $header = $request->getHeader('HTTP_X_HUB_SIGNATURE');
+
+    echo $header;
+
+    $body = $app->request->getJsonRawBody();
+
+    echo json_encode($body);
+
+    $hashedBody = hash_hmac('sha1', $body, 'a6e3e7990d39c413862d7fcc126f57c418d7cf6dbf18e2da8eb3dea738a17349');
     
-    $headers = apache_request_headers();
-    
-    foreach ($headers as $header => $value) {
-        echo "$header: $value <br />\n";
-    }
+    echo $hashedBody;
 
-    //echo 'h: '.$header;
-    //echo 'hs: '.implode("\t\n", $headers);
-
-    //$body = $app->request->getJsonRawBody();
-
-    //echo json_encode($body);
-
-    //$hashedBody = hash_hmac('sha1', $body, 'a6e3e7990d39c413862d7fcc126f57c418d7cf6dbf18e2da8eb3dea738a17349');
 });
 
 $app->notFound(function () use ($app) {
