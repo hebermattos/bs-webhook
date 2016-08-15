@@ -15,6 +15,7 @@ $app->get('/bswebhook/{data}', function ($data) {
 
 $app->post('/bswebhook', function () use ($app) {
     
+    $request = new \Phalcon\Http\Request();
     $header = $request->getHeader('HTTP_X_HUB_SIGNATURE');
 
     echo $header;
