@@ -8,6 +8,10 @@ $app->get('/', function () {
     echo 'bswebhook!';
 });
 
+$app->get('/bswebhook', function ($data) {
+    echo 'bswebhook: '.$data;
+});
+
 $app->post('/bswebhook', function ($data) use ($app) {
     
     echo $app->request->getHeader('HTTP_X_HUB_SIGNATURE');
