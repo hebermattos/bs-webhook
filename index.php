@@ -19,8 +19,12 @@ $app->post('/bswebhook', function () use ($app) {
     $header = $request->getHeader('HTTP_X_HUB_SIGNATURE');
     $headers = $request->getHeaders();
 
-    echo 'h: '.$header;
-    echo 'hs: '.implode("\t\n", $headers);
+    foreach (getallheaders() as $name => $value) {
+        echo "$name: $value\n";
+    }
+
+    //echo 'h: '.$header;
+    //echo 'hs: '.implode("\t\n", $headers);
 
     //$body = $app->request->getJsonRawBody();
 
