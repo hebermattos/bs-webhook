@@ -15,12 +15,14 @@ $app->get('/bswebhook/{data}', function ($data) {
 
 $app->post('/bswebhook', function () use ($app) {
     
-    $request = new \Phalcon\Http\Request();
-    $header = $request->getHeader('HTTP_X_HUB_SIGNATURE');
-    $headers = $request->getHeaders();
-
-    foreach (headers_list() as $name => $value) {
-        echo "$name: $value\n";
+    //$request = new \Phalcon\Http\Request();
+    //$header = $request->getHeader('HTTP_X_HUB_SIGNATURE');
+    //$headers = $request->getHeaders();
+    
+    $headers = apache_request_headers();
+    
+    foreach ($headers as $header => $value) {
+        echo "$header: $value <br />\n";
     }
 
     //echo 'h: '.$header;
