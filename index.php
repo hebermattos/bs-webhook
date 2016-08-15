@@ -23,18 +23,7 @@ $app->post('/bswebhook', function () use ($app) {
     
     $response = new Response();
     
-    $data = "header: ".$header." hash: ".$hashedBody;
-    
-    $response->setStatusCode(201, "Created");
-
-    $response->setJsonContent(
-            array(
-                'status' => 'OK',
-                'data'   => $data,
-            )
-        );
-        
-    return $response;
+    echo "header: ".$header." hash: ".$hashedBody;
 
 });
 
