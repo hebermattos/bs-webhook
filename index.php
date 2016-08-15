@@ -14,9 +14,9 @@ $app->get('/bswebhook/{data}', function ($data) {
 
 $app->post('/bswebhook', function () use ($app) {
     
-    echo $app->request->getHeader('HTTP_X_HUB_SIGNATURE');
+    echo 'header: '.$app->request->getHeader('HTTP_X_HUB_SIGNATURE');
 
-    echo hash_hmac('sha1', 'foo', 'a6e3e7990d39c413862d7fcc126f57c418d7cf6dbf18e2da8eb3dea738a17349');
+    echo 'hash: '.hash_hmac('sha1', 'foo', 'a6e3e7990d39c413862d7fcc126f57c418d7cf6dbf18e2da8eb3dea738a17349');
 });
 
 $app->notFound(function () use ($app) {
