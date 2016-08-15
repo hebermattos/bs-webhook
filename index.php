@@ -1,6 +1,7 @@
 <?php
 
 use Phalcon\Mvc\Micro;
+use Phalcon\Http\Response;
 
 $app = new Micro();
 
