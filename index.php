@@ -15,11 +15,11 @@ $app->get('/bswebhook/{data}', function ($data) {
 
 $app->post('/bswebhook', function () use ($app) {
     
-    echo 'header: '.$app->request->getHeader('HTTP_X_HUB_SIGNATURE');
+    $header = $app->request->getHeader('HTTP_X_HUB_SIGNATURE');
 
     $body = $app->request->getJsonRawBody();
 
-    echo 'hash: '.hash_hmac('sha1', $body, 'a6e3e7990d39c413862d7fcc126f57c418d7cf6dbf18e2da8eb3dea738a17349');
+    $hashedBody = hash_hmac('sha1', $body, 'a6e3e7990d39c413862d7fcc126f57c418d7cf6dbf18e2da8eb3dea738a17349');
     
     $response = new Response();
     
@@ -28,7 +28,7 @@ $app->post('/bswebhook', function () use ($app) {
     $response->setJsonContent(
             array(
                 'status' => 'OK',
-                'data'   => $body
+                'data'   => 'header: '.$header.' hash: '.$hashedBody
             )
         );
         
