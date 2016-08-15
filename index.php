@@ -19,7 +19,7 @@ $app->post('/bswebhook', function () use ($app) {
     $header = $request->getHeader('HTTP_X_HUB_SIGNATURE');
     $headers = $request->getHeaders();
 
-    foreach (apache_response_headers() as $name => $value) {
+    foreach (headers_list() as $name => $value) {
         echo "$name: $value\n";
     }
 
