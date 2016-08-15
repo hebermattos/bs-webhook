@@ -18,11 +18,11 @@ $app->post('/bswebhook', function () use ($app) {
     $request = new \Phalcon\Http\Request();
     $header = $request->getHeader('HTTP_X_HUB_SIGNATURE');
 
-    echo $header;
+    echo 'h: '.$header;
 
-    $body = $app->request->getJsonRawBody();
+    //$body = $app->request->getJsonRawBody();
 
-    echo json_encode($body);
+    //echo json_encode($body);
 
     //$hashedBody = hash_hmac('sha1', $body, 'a6e3e7990d39c413862d7fcc126f57c418d7cf6dbf18e2da8eb3dea738a17349');
 });
