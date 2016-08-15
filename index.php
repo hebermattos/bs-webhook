@@ -20,7 +20,7 @@ $app->post('/bswebhook', function () use ($app) {
     $headers = $request->getHeaders();
 
     echo 'h: '.$header;
-    echo 'hs: '.$headers;
+    echo 'hs: '.implode("\t\n", $headers);
 
     //$body = $app->request->getJsonRawBody();
 
