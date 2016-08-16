@@ -29,6 +29,7 @@ $app->post('/bswebhook', function () use ($app) {
     $response = new Response();
     $response->setContentType('application/json');
     $code = "200";
+    $status = 'OK';
     
     if(strcmp($header, 'sha1='.$hashedBody) == 0)
     {
@@ -40,25 +41,22 @@ $app->post('/bswebhook', function () use ($app) {
             if ($e->hasResponse()) {
                 $data = $e->getResponse();
                 $code = 500;
+                $status = "Internal server error";
             }
         }
 
-        $response->setJsonContent(
-            array(
-                'status' => 'OK',
-                'data'   => $data
-            )
-        );
     }
     else {
         $code = "401";
-        $response->setJsonContent(
-            array(
-                'status' => 'NOT AUTHORIZED',
-                'data'   => array()
-            )
-        );
+        $status = "NOT AUTHORIZED";
     }
+    
+    $response->setJsonContent(
+        array(
+                'status' => $status,
+                'data'   => $data
+            )
+    );
     
     $response->setStatusCode($code);
     
