@@ -6,8 +6,8 @@ use Phalcon\Mvc\Micro;
 use Phalcon\Http\Response;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\ServerException
 
 $app = new Micro();
 
@@ -60,8 +60,8 @@ $app->post('/bswebhook', function () use ($app) {
     
     $response->setJsonContent(
         array(
-                'status' => $status,
-                'data'   => $data
+            'status' => $status,
+            'data'   => $data
         )
     );
     
