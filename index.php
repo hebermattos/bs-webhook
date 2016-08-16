@@ -28,10 +28,16 @@ $app->post('/bswebhook', function () use ($app) {
     
     if(strcmp($header, 'sha1='.$hashedBody) == 0)
     {
+        $provider = Request::getProvider();
+        $provider->setBaseUri('200.178.195.70:888');
+        $provider->header->set('Accept', 'application/json');
+
+        $response = $provider->post('/boletosimples', $body);
+        
         $response->setJsonContent(
             array(
                 'status' => 'OK',
-                'data'   => array()
+                'data'   => $response
             )
         );
     }
