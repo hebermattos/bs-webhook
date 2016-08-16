@@ -4,6 +4,7 @@ require 'vendor/autoload.php';
 
 use Phalcon\Mvc\Micro;
 use Phalcon\Http\Response;
+use Phalcon\Http\Request;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
@@ -21,7 +22,7 @@ $app->get('/bswebhook/{data}', function ($data) {
 
 $app->post('/bswebhook', function () use ($app) {
     
-    $request = new \Phalcon\Http\Request();
+    $request = new Request();
     
     $header = $request->getHeader('HTTP_X_HUB_SIGNATURE');
     $body = $request->getRawBody();
@@ -42,15 +43,11 @@ $app->post('/bswebhook', function () use ($app) {
         } catch (ServerException $e) {
             $code = 500;
             $status = "Internal server error";
-            if ($e->hasResponse()) {
-                $data = $e->getResponse();
-            }
+            $data = $e->getMessage();
         } catch (ClientException $e) {
             $code = 400;
             $status = "badrequest";
-            if ($e->hasResponse()) {
-                $data = $e->getResponse();
-            }
+            $data = $e->getMessage();
         }
     }
     else {
