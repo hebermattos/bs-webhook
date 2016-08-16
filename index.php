@@ -39,6 +39,7 @@ $app->post('/bswebhook', function () use ($app) {
         } catch (RequestException $e) {
             if ($e->hasResponse()) {
                 $data = $e->getResponse();
+                $code = 500;
             }
         }
 
