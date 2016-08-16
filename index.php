@@ -43,11 +43,11 @@ $app->post('/bswebhook', function () use ($app) {
         } catch (ServerException $e) {
             $code = 500;
             $status = "Internal server error";
-            $data = $e->getMessage();
+            $data = $e->getResponse();
         } catch (ClientException $e) {
             $code = 400;
             $status = "Bad request";
-            $data = $e->getMessage();
+            $data = $e->getResponse();
         }
     }
     else {
