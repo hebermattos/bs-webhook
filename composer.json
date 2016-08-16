@@ -1,5 +1,5 @@
 {
     "require": {
-        "phalcon/incubator": "~3.0"
-    }
+      "guzzlehttp/guzzle": "~6.0"
+   }
 }

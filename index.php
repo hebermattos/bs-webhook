@@ -3,7 +3,8 @@
 use Phalcon\Mvc\Micro;
 use Phalcon\Http;
 use Phalcon\Http\Response;
-use Phalcon\Http\Client\Request;
+
+use GuzzleHttp\Client;
 
 $app = new Micro();
 
@@ -30,11 +31,8 @@ $app->post('/bswebhook', function () use ($app) {
     
     if(strcmp($header, 'sha1='.$hashedBody) == 0)
     {
-        $provider = Request::getProvider();
-        $provider->setBaseUri('200.178.195.70:888');
-        $provider->header->set('Accept', 'application/json');
-
-        $response = $provider->post('/boletosimples', $body);
+        $client = new Client();
+        $response = $client->request('POST', 'http://200.178.195.70:888/boletosimples', ['body' => $body]);
         
         $response->setJsonContent(
             array(
