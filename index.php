@@ -37,7 +37,7 @@ $app->post('/bswebhook', function () use ($app) {
             $response = $client->request('POST', 'http://200.178.195.70:888/v1/boletosimples', ['body' => $body]);
         } catch (RequestException $e) {
             if ($e->hasResponse()) {
-                $response = $e->getResponse());
+                $response = $e->getResponse();
             }
         }
         
