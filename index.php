@@ -24,7 +24,7 @@ $app->post('/bswebhook', function () use ($app) {
     
     $response = new Response();
     
-    if(strcmp($header, 'sha1='.$hashedBody))
+    if(strcmp($header, 'sha1='.$hashedBody) == 0)
     {
         $response->setJsonContent(
             array(
