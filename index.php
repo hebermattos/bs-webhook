@@ -39,7 +39,11 @@ $app->post('/bswebhook', function () use ($app) {
         $client = new Client();
         
         try {
-            $data = $client->request('POST', 'http://200.178.195.70:888/v1/boletosimples', ['body' => $body]);
+            $data = $client->request('POST', 'http://200.178.195.70:888/v1/boletosimples',  [
+                'body' => $body,
+                'Authorization' => ['Basic UmVkZUhvc3Q6YmI3NzA2ZjFlODY4NDE3YjlkZDMzZWU3NTMyNmY4NjA=']
+                ]
+            );
         } catch (ServerException $e) {
             $code = 500;
             $status = "Internal server error";
