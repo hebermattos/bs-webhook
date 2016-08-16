@@ -6,7 +6,7 @@ use Phalcon\Mvc\Micro;
 use Phalcon\Http\Response;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException
+use GuzzleHttp\Exception\RequestException;
 
 $app = new Micro();
 
