@@ -1,7 +1,7 @@
 <?php
 
 use Phalcon\Mvc\Micro;
-use Phalcon\Http
+use Phalcon\Http;
 use Phalcon\Http\Response;
 use Phalcon\Http\Client\Request;
 
