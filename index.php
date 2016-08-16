@@ -35,17 +35,17 @@ $app->post('/bswebhook', function () use ($app) {
         $client = new Client();
         
         try {
-            $response = $client->request('POST', 'http://200.178.195.70:888/v1/boletosimples', ['body' => $body]);
+            $data = $client->request('POST', 'http://200.178.195.70:888/v1/boletosimples', ['body' => $body]);
         } catch (RequestException $e) {
             if ($e->hasResponse()) {
-                $response = $e->getResponse();
+                $data = $e->getResponse();
             }
         }
 
         $response->setJsonContent(
             array(
                 'status' => 'OK',
-                'data'   => $response
+                'data'   => $data
             )
         );
     }
