@@ -1,5 +1,7 @@
 <?php
 
+require 'vendor/autoload.php';
+
 use Phalcon\Mvc\Micro;
 use Phalcon\Http\Response;
 
