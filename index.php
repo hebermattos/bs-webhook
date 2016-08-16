@@ -46,7 +46,7 @@ $app->post('/bswebhook', function () use ($app) {
             $data = $e->getMessage();
         } catch (ClientException $e) {
             $code = 400;
-            $status = "badrequest";
+            $status = "Bad request";
             $data = $e->getMessage();
         }
     }
