@@ -1,7 +1,9 @@
 <?php
 
 use Phalcon\Mvc\Micro;
+use Phalcon\Http
 use Phalcon\Http\Response;
+use Phalcon\Http\Client\Request;
 
 $app = new Micro();
 
@@ -15,7 +17,7 @@ $app->get('/bswebhook/{data}', function ($data) {
 
 $app->post('/bswebhook', function () use ($app) {
     
-    $request = new \Phalcon\Http\Request();
+    $request = new Request();
     $header = $request->getHeader('HTTP_X_HUB_SIGNATURE');
     
     $body = $request->getRawBody();
