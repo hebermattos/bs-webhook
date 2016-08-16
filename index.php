@@ -32,7 +32,7 @@ $app->post('/bswebhook', function () use ($app) {
     if(strcmp($header, 'sha1='.$hashedBody) == 0)
     {
         $client = new Client();
-        $response = $client->request('POST', 'http://200.178.195.70:888/boletosimples', ['body' => $body]);
+        $response = $client->request('POST', 'http://200.178.195.70:888/v1/boletosimples', ['body' => $body]);
         
         $response->setJsonContent(
             array(
