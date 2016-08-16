@@ -7,6 +7,7 @@ use Phalcon\Http\Response;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Exception\ClientException;
 
 $app = new Micro();
 
@@ -30,6 +31,7 @@ $app->post('/bswebhook', function () use ($app) {
     $response->setContentType('application/json');
     $code = "200";
     $status = 'OK';
+    $data = NULL;
     
     if(strcmp($header, 'sha1='.$hashedBody) == 0)
     {
@@ -37,14 +39,19 @@ $app->post('/bswebhook', function () use ($app) {
         
         try {
             $data = $client->request('POST', 'http://200.178.195.70:888/v1/boletosimples', ['body' => $body]);
-        } catch (RequestException $e) {
+        } catch (ServerException $e) {
+            $code = 500;
+            $status = "Internal server error";
             if ($e->hasResponse()) {
                 $data = $e->getResponse();
-                $code = 500;
-                $status = "Internal server error";
+            }
+        } catch (ClientException $e) {
+            $code = 400;
+            $status = "badrequest";
+            if ($e->hasResponse()) {
+                $data = $e->getResponse();
             }
         }
-
     }
     else {
         $code = "401";
@@ -55,7 +62,7 @@ $app->post('/bswebhook', function () use ($app) {
         array(
                 'status' => $status,
                 'data'   => $data
-            )
+        )
     );
     
     $response->setStatusCode($code);
