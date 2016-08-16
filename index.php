@@ -24,6 +24,7 @@ $app->post('/bswebhook', function () use ($app) {
     
     $response = new Response();
     $response->setContentType('application/json');
+    $code = "200";
     
     if(strcmp($header, 'sha1='.$hashedBody) == 0)
     {
@@ -35,6 +36,7 @@ $app->post('/bswebhook', function () use ($app) {
         );
     }
     else {
+        $code = "401";
         $response->setJsonContent(
             array(
                 'status' => 'NOT AUTHORIZED',
@@ -42,6 +44,8 @@ $app->post('/bswebhook', function () use ($app) {
             )
         );
     }
+    
+    $response->setStatusCode($code);
     
     return $response;
 
