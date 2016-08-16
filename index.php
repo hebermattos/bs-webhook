@@ -6,6 +6,7 @@ use Phalcon\Mvc\Micro;
 use Phalcon\Http\Response;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException
 
 $app = new Micro();
 
@@ -35,17 +36,12 @@ $app->post('/bswebhook', function () use ($app) {
         
         try {
             $response = $client->request('POST', 'http://200.178.195.70:888/v1/boletosimples', ['body' => $body]);
-        } catch (ClientException $e) {
+        } catch (RequestException $e) {
             if ($e->hasResponse()) {
                 $response = $e->getResponse();
             }
         }
-         catch (ServerException $e) {
-            if ($e->hasResponse()) {
-                $response = $e->getResponse();
-            }
-        }
-        
+
         $response->setJsonContent(
             array(
                 'status' => 'OK',
