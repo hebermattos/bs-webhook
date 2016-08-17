@@ -36,7 +36,8 @@ class FeatureContext implements Context, SnippetAcceptingContext
     /**
      * @When i do a POST against http:\/\/bswebhook-com.umbler.net\/index.php?_url=\/bswebhook
      */
-    public function iDoAPostAgainstHttpBswebhookComUmblerNetIndexPhpUrlBswebhook()    {
+    public function iDoAPostAgainstHttpBswebhookComUmblerNetIndexPhpUrlBswebhook()   
+    {
         try
         {
             $this->response = $this->client->request('POST', $this->config['environment']['billapiurl'],  [
@@ -46,11 +47,10 @@ class FeatureContext implements Context, SnippetAcceptingContext
                                                                 'HTTP_X_HUB_SIGNATURE' => 'sha1=745187d4669d44dba800abadb127c6ce777b8a00'
                                                             ]
                                                         ]);
-                                                    );
         } catch (ServerException $e) {
-            $this->response $e->getResponse();
+            $this->response = $e->getResponse();
         } catch (ClientException $e) {
-            $this->response $e->getResponse();
+            $this->response = $e->getResponse();
         }
     }
     /**
