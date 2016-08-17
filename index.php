@@ -46,7 +46,6 @@ $app->post('/bswebhook', function () use ($app) {
                 ]
             );
         } catch (ServerException $e) {
-            $url = new Url();
             $code = 500;
             $status = "Internal server error";
             $data =  Psr7\str($e->getResponse());
