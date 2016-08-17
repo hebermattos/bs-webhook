@@ -1,11 +1,14 @@
 <?php
 
+require 'vendor/autoload.php';
+
 use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 use GuzzleHttp\Client;
+use GuzzleHttp\Psr7;
 use Phalcon\Config\Adapter\Ini as IniConfig;
 
 /**
@@ -59,7 +62,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
     public function CheckResponse()
     {
         if (strpos($this->response->getBody()->getContents(), '"status":"OK"') == false) {
-            throw new Exception($this->response);
+            throw new Exception(Psr7\str($e->getResponse()));
         }
 
     }
