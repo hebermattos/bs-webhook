@@ -13,14 +13,6 @@ use GuzzleHttp\Psr7;
 
 $app = new Micro();
 
-$app->get('/', function () {
-    echo 'bswebhook!';
-});
-
-$app->get('/bswebhook/{data}', function ($data) {
-    echo 'bswebhook: '.$data;
-});
-
 $app->post('/bswebhook', function () use ($app) {
     
     $request = new Request();
@@ -63,7 +55,7 @@ $app->post('/bswebhook', function () use ($app) {
     $response->setJsonContent(
         array(
             'status' => $status,
-            'data'   => Psr7\str($data)
+            'data'   => $data->getBody()
         )
     );
     
