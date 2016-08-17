@@ -29,7 +29,7 @@ $app->post('/bswebhook', function () use ($app) {
     
     $header = $request->getHeader('HTTP_X_HUB_SIGNATURE');
     $rawBody = $request->getRawBody();
-    $hashedBody = hash_hmac('sha1', $rawBody, $app->environment->boletosimpleswebhooksecret);
+    $hashedBody = hash_hmac('sha1', $rawBody, $app->config->boletosimpleswebhooksecret);
     
     $response = new Response();
     $response->setContentType('application/json');
@@ -42,9 +42,9 @@ $app->post('/bswebhook', function () use ($app) {
         $client = new Client();
         
         try {
-            $data = $client->request('POST', $app->environment->billapiurl,  [
+            $data = $client->request('POST', $app->config->billapiurl,  [
                 'json' => $request->getJsonRawBody(),
-                'Authorization' => ['Basic '.$app->environment->billapitoken]
+                'Authorization' => ['Basic '.$app->config->billapitoken]
                 ]
             );
         } catch (ServerException $e) {
