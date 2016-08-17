@@ -53,7 +53,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
             $this->response = $requestResponse->getBody()->getContents();                                  
             
         } catch (Exception $e) {
-            $this->response = $e->getBody()->getContents();
+            $this->response = $e->getResponse()->getBody(true);
         }
     }
     /**
