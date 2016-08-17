@@ -9,6 +9,7 @@ use Phalcon\Http\Request;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
+use Psr\Http\Message\ResponseInterface;
 
 $app = new Micro();
 
@@ -47,7 +48,7 @@ $app->post('/bswebhook', function () use ($app) {
         } catch (ServerException $e) {
             $code = 500;
             $status = "Internal server error";
-            $data = $e->getResponse();
+            $data =  $e->getMessage() . " --- " . $e->getRequest()->getMethod();
         } catch (ClientException $e) {
             $code = 400;
             $status = "Bad request";
