@@ -45,6 +45,8 @@ $app->post('/bswebhook', function () use ($app) {
     {
         $client = new Client();
         
+        echo "URL: ".$app->config->environment->billapiurl;
+        
         try {
             $data = $client->request('POST', $app->config->environment->billapiurl,  [
                 'json' => $request->getJsonRawBody(),
