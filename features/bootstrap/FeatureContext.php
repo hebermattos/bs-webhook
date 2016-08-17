@@ -43,6 +43,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
         try
         {
             $requestResponse = $this->client->request('POST', 'http://rc-bswebhook-com.umbler.net/index.php?_url=/bswebhook',  [
+                    'content-type' => 'application/json',
                     'body' => $this->validPayload,
                     'headers'  => [
                         'X-Hub-Signature' => 'sha1=745187d4669d44dba800abadb127c6ce777b8a0'
