@@ -69,7 +69,7 @@ $app->post('/bswebhook', function () use ($app) {
     $response->setJsonContent(
         array(
             'status' => $status,
-            'data'   => json_encode($request->getHeaders()),
+            'data'   => $data,
         )
     );
     
