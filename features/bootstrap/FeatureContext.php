@@ -49,7 +49,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
                                                         'headers' => [
                                                                 'HTTP_X_HUB_SIGNATURE' => 'sha1=745187d4669d44dba800abadb127c6ce777b8a00'
                                                             ]
-                                                        ]);
+                                                        ])->getBody()->getContents();
         } catch (ServerException $e) {
             $this->response = $e->getResponse();
         } catch (ClientException $e) {
@@ -61,7 +61,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function CheckResponse()
     {
-        if (strpos($this->response->getBody()->getContents(), '"status":"OK"') == false) {
+        if (strpos($this->response, '"status":"OK"') == false) {
             throw new Exception(Psr7\str($this->response));
         }
 
