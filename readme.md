@@ -1,0 +1,1 @@
+[![Build Status](https://snap-ci.com/hebermattos/bs-webhook/branch/master/build_image)](https://snap-ci.com/hebermattos/bs-webhook/branch/master)
