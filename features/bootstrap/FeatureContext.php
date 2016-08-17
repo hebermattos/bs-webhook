@@ -37,14 +37,21 @@ class FeatureContext implements Context, SnippetAcceptingContext
      * @When i do a POST against http:\/\/bswebhook-com.umbler.net\/index.php?_url=\/bswebhook
      */
     public function iDoAPostAgainstHttpBswebhookComUmblerNetIndexPhpUrlBswebhook()    {
-        
-        $this->response = $this->client->request('POST', $this->config['environment']['billapiurl'],  [
-                                                    'json' => $this->validPayload,
-                                                    'Authorization' => ['Basic '.$this->config['environment']['billapitoken']],
-                                                    'headers' => [
-                                                            'HTTP_X_HUB_SIGNATURE' => 'sha1=745187d4669d44dba800abadb127c6ce777b8a00'
-                                                        ]
-                                                    ]);
+        try
+        {
+            $this->response = $this->client->request('POST', $this->config['environment']['billapiurl'],  [
+                                                        'json' => $this->validPayload,
+                                                        'Authorization' => ['Basic '.$this->config['environment']['billapitoken']],
+                                                        'headers' => [
+                                                                'HTTP_X_HUB_SIGNATURE' => 'sha1=745187d4669d44dba800abadb127c6ce777b8a00'
+                                                            ]
+                                                        ]);
+                                                    );
+        } catch (ServerException $e) {
+            $this->response $e->getResponse();
+        } catch (ClientException $e) {
+            $this->response $e->getResponse();
+        }
     }
     /**
      * @Then i should have a valid status
