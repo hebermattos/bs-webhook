@@ -31,6 +31,8 @@ $app->post('/bswebhook', function () use ($app) {
     
     $request = new Request();
     
+    $allheaders = $request->getHeaders();
+    
     $header = $request->getHeader('HTTP_X_HUB_SIGNATURE');
     $rawBody = $request->getRawBody();
     $hashedBody = hash_hmac('sha1', $rawBody, $app->config->environment->boletosimpleswebhooksecret);
@@ -75,7 +77,7 @@ $app->post('/bswebhook', function () use ($app) {
     
     $response->setStatusCode($code);
     
-    return $response;
+    return json_encode($allheaders);//$response;
 
 });
 
