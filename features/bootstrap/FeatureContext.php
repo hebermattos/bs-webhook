@@ -8,7 +8,6 @@ use Behat\Gherkin\Node\TableNode;
 use GuzzleHttp\Client;
 use Phalcon\Config\Adapter\Ini as IniConfig;
 
-
 /**
  * Defines application features from the specific context.
  */
@@ -22,7 +21,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
 
     public function __construct()
     {
-        $this->config = new IniConfig("config.ini");
+        $this->config = parse_ini_file("config.ini", true);
         $this->client = new Client();
     }
 
@@ -35,14 +34,17 @@ class FeatureContext implements Context, SnippetAcceptingContext
     }
 
     /**
-     * @When i do a POST against http:\/\/bswebhook-com.umbler.net\/index.php?_url=\/bswebhookt
+     * @When i do a POST against http:\/\/bswebhook-com.umbler.net\/index.php?_url=\/bswebhook
      */
-    public function iDoAPostAgainstHttpBswebhookComUmblerNetIndexPhpUrlBswebhookt()    {
+    public function iDoAPostAgainstHttpBswebhookComUmblerNetIndexPhpUrlBswebhook()    {
         
-        $this->response = $this->client->request('POST', $onfig->environment->billapiurl,  [
-                                                'json' => $this->validPayload,
-                                                'Authorization' => ['Basic '.$config->environment->billapitoken]
-                                                ]);
+        $this->response = $this->client->request('POST', $this->config['environment']['billapiurl'],  [
+                                                    'json' => $this->validPayload,
+                                                    'Authorization' => ['Basic '.$this->config['environment']['billapitoken']],
+                                                    'headers' => [
+                                                            'HTTP_X_HUB_SIGNATURE' => 'sha1=745187d4669d44dba800abadb127c6ce777b8a00'
+                                                        ]
+                                                    ]);
     }
     /**
      * @Then i should have a valid status
