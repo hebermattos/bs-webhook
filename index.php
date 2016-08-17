@@ -65,7 +65,7 @@ $app->post('/bswebhook', function () use ($app) {
     $response->setJsonContent(
         array(
             'status' => $status,
-            'data'   => $data->getBody()->getContents()
+            'data'   => $app->config->billapiurl.' '.$app->config->billapitoken.' '.$app->config->boletosimpleswebhooksecret
         )
     );
     
