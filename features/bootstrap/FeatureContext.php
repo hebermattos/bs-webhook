@@ -21,7 +21,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
 
     public function __construct()
     {
-        $this->config = parse_ini_file("config.ini", true);
+        $this->config = parse_ini_file("./config.ini", true);
         $this->client = new Client();
     }
 
