@@ -31,7 +31,7 @@ $app->post('/bswebhook', function () use ($app) {
     
     $request = new Request();
     
-    $allheaders = "h: ".$request->getHeaders();
+    $allheaders = $request->getHeaders();
     
     $header = $request->getHeader('HTTP_X_HUB_SIGNATURE');
     $rawBody = $request->getRawBody();
