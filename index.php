@@ -26,8 +26,8 @@ $app->post('/bswebhook', function () use ($app) {
     $request = new Request();
     
     $header = $request->getHeader('HTTP_X_HUB_SIGNATURE');
-    $body = $request->getRawBody();
-    $hashedBody = hash_hmac('sha1', $body, 'a6e3e7990d39c413862d7fcc126f57c418d7cf6dbf18e2da8eb3dea738a17349');
+    $rawBody = $request->getRawBody();
+    $hashedBody = hash_hmac('sha1', $rawBody, 'a6e3e7990d39c413862d7fcc126f57c418d7cf6dbf18e2da8eb3dea738a17349');
     
     $response = new Response();
     $response->setContentType('application/json');
@@ -41,7 +41,7 @@ $app->post('/bswebhook', function () use ($app) {
         
         try {
             $data = $client->request('POST', 'http://200.178.195.70:888/v1/boletosimples',  [
-                'json' => $body,
+                'json' => $request->getJsonRawBody(),
                 'Authorization' => ['Basic UmVkZUhvc3Q6YmI3NzA2ZjFlODY4NDE3YjlkZDMzZWU3NTMyNmY4NjA=']
                 ]
             );
