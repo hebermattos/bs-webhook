@@ -59,7 +59,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
     public function CheckResponse()
     {
         if (strpos($this->response->getBody()->getContents(), '"status":"OK"') == false) {
-            throw new Exception($this->response->getBody()->getContents());
+            throw new Exception($this->response);
         }
 
     }
