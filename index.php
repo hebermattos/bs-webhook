@@ -75,7 +75,7 @@ $app->post('/bswebhook', function () use ($app) {
     
     $response->setStatusCode($code);
     
-    return $request->getHeaders();
+    return json_encode($request->getHeaders());
 
 });
 
