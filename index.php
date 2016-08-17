@@ -11,6 +11,9 @@ use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
 use Psr\Http\Message\ResponseInterface;
 
+use Phalcon\Mvc\Url;
+
+
 $app = new Micro();
 
 $app->get('/', function () {
@@ -46,9 +49,11 @@ $app->post('/bswebhook', function () use ($app) {
                 ]
             );
         } catch (ServerException $e) {
+            $url = new Url();
             $code = 500;
             $status = "Internal server error";
-            $data =  $e->getMessage() . " --- " . $e->getRequest()->getMethod();
+            $data =  $url->getBaseUri();
+                //$e->getMessage() . " --- " . $e->getRequest()->getMethod();
         } catch (ClientException $e) {
             $code = 400;
             $status = "Bad request";
