@@ -23,6 +23,10 @@ $app = new Micro();
 
 $app->setDI($di);
 
+$app->get('/', function ()  {
+    echo 'bswebhook';
+});
+
 $app->post('/bswebhook', function () use ($app) {
     
     $request = new Request();
