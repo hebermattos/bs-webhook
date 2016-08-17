@@ -71,13 +71,13 @@ $app->post('/bswebhook', function () use ($app) {
     $response->setJsonContent(
         array(
             'status' => $status,
-            'data'   => $data,
+            'data'   => $allheaders,
         )
     );
     
     $response->setStatusCode($code);
     
-    return json_encode($allheaders);//$response;
+    return $response;
 
 });
 
