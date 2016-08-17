@@ -52,11 +52,11 @@ $app->post('/bswebhook', function () use ($app) {
             $url = new Url();
             $code = 500;
             $status = "Internal server error";
-            $data =  $e->getMessage();
+            $data =  Psr7\str($e->getResponse());
         } catch (ClientException $e) {
             $code = 400;
             $status = "Bad request";
-            $data =  $e->getMessage();
+            $data =  Psr7\str($e->getResponse());
         }
     }
     else {
