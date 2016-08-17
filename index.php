@@ -55,7 +55,7 @@ $app->post('/bswebhook', function () use ($app) {
     $response->setJsonContent(
         array(
             'status' => $status,
-            'data'   => $data->getBody()
+            'data'   => $response->getBody()->getContents()
         )
     );
     
