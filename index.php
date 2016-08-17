@@ -65,7 +65,7 @@ $app->post('/bswebhook', function () use ($app) {
     }
     else {
         $code = "401";
-        $status = "NOT AUTHORIZED";
+        $status = "NOT AUTHORIZED ('.$header.' x '.$hashedBody.')";
     }
     
     $response->setJsonContent(
