@@ -9,10 +9,7 @@ use Phalcon\Http\Request;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
-use Psr\Http\Message\ResponseInterface;
-
-use Phalcon\Mvc\Url;
-
+use GuzzleHttp\Psr7;
 
 $app = new Micro();
 
