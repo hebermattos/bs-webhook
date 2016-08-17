@@ -41,7 +41,7 @@ $app->post('/bswebhook', function () use ($app) {
         
         try {
             $data = $client->request('POST', 'http://200.178.195.70:888/v1/boletosimples',  [
-                'body' => $body,
+                'json' => $body,
                 'Authorization' => ['Basic UmVkZUhvc3Q6YmI3NzA2ZjFlODY4NDE3YjlkZDMzZWU3NTMyNmY4NjA=']
                 ]
             );
