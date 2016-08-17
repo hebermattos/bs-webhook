@@ -5,13 +5,23 @@ require 'vendor/autoload.php';
 use Phalcon\Mvc\Micro;
 use Phalcon\Http\Response;
 use Phalcon\Http\Request;
+use Phalcon\Di\FactoryDefault;
+use Phalcon\Config\Adapter\Ini as IniConfig;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\Psr7;
 
+$di = new FactoryDefault();
+
+$di->set('config', function () {
+    return new IniConfig("config.ini");
+});
+
 $app = new Micro();
+
+$app->setDI($di);
 
 $app->post('/bswebhook', function () use ($app) {
     
@@ -19,7 +29,7 @@ $app->post('/bswebhook', function () use ($app) {
     
     $header = $request->getHeader('HTTP_X_HUB_SIGNATURE');
     $rawBody = $request->getRawBody();
-    $hashedBody = hash_hmac('sha1', $rawBody, 'a6e3e7990d39c413862d7fcc126f57c418d7cf6dbf18e2da8eb3dea738a17349');
+    $hashedBody = hash_hmac('sha1', $rawBody, $app->environment->boletosimpleswebhooksecret);
     
     $response = new Response();
     $response->setContentType('application/json');
@@ -32,18 +42,18 @@ $app->post('/bswebhook', function () use ($app) {
         $client = new Client();
         
         try {
-            $data = $client->request('POST', 'http://200.178.195.70:888/v1/boletosimples',  [
+            $data = $client->request('POST', $app->environment->billapiurl,  [
                 'json' => $request->getJsonRawBody(),
-                'Authorization' => ['Basic UmVkZUhvc3Q6YmI3NzA2ZjFlODY4NDE3YjlkZDMzZWU3NTMyNmY4NjA=']
+                'Authorization' => ['Basic '.$app->environment->billapitoken]
                 ]
             );
         } catch (ServerException $e) {
             $code = 500;
-            $status = "Internal server error";
+            $status = "INTERNAL SERVER ERROR";
             $data =  Psr7\str($e->getResponse());
         } catch (ClientException $e) {
             $code = 400;
-            $status = "Bad request";
+            $status = "BAD REQUEST";
             $data =  Psr7\str($e->getResponse());
         }
     }
