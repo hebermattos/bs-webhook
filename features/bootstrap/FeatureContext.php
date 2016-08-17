@@ -47,7 +47,8 @@ class FeatureContext implements Context, SnippetAcceptingContext
                                                         'json' => $this->validPayload,
                                                         'headers' => [
                                                                 //'X-Hub-Signature' => 'sha1=745187d4669d44dba800abadb127c6ce777b8a00'
-                                                                'X-HUB-SIGNATURE' => 'sha1=745187d4669d44dba800abadb127c6ce777b8a00'
+                                                                //'X-HUB-SIGNATURE' => 'sha1=745187d4669d44dba800abadb127c6ce777b8a00'
+                                                                'HTTP_X_HUB_SIGNATURE' => 'sha1=745187d4669d44dba800abadb127c6ce777b8a00'
                                                             ]
                                                         ]);
             
