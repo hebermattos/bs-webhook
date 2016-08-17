@@ -1,1 +1,2 @@
 [![Build Status](https://snap-ci.com/hebermattos/bs-webhook/branch/master/build_image)](https://snap-ci.com/hebermattos/bs-webhook/branch/master)
+[![Code Climate](https://codeclimate.com/github/hebermattos/bs-webhook/badges/gpa.svg)](https://codeclimate.com/github/hebermattos/bs-webhook)
