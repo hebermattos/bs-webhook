@@ -61,7 +61,6 @@ class FeatureContext implements Context, SnippetAcceptingContext
             
         } catch (TransferException $e) {
             $this->response = $e->getResponse()->getBody(true);
-        }
         } catch (ClientException $e) {
             $this->response = $e->getResponse()->getBody(true);
         }
