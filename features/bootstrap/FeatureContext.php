@@ -19,6 +19,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
     private $validPayload;
     private $response;
     private $client;
+    private $token;
     
     public function __construct()
     {
@@ -34,6 +35,14 @@ class FeatureContext implements Context, SnippetAcceptingContext
     }   
     
     /**
+     * @Given with a invalid token
+     */
+    public function withAInvalidToken()
+    {
+        $this->token = "adwe4124eua9ry329847b98347234";
+    }
+    
+    /**
      * @When i do a POST against http:\/\/bswebhook-com.umbler.net\/index.php?_url=\/bswebhook
      */
     public function iDoAPostAgainstHttpBswebhookComUmblerNetIndexPhpUrlBswebhook()   
@@ -43,7 +52,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
             $requestResponse = $this->client->request('POST', 'http://rc-bswebhook-com.umbler.net/index.php?_url=/bswebhook',  [
                     'json' => $this->validPayload,
                     'headers'  => [
-                        'X-Hub-Signature' => 'sha1=745187d4669d44dba800abadb127c6ce777b8a0'
+                        'X-Hub-Signature' => $this->token
                     ]
                 ]
             );
@@ -55,14 +64,14 @@ class FeatureContext implements Context, SnippetAcceptingContext
         }
     }
     
+
     /**
-     * @Then i should have a valid status
+     * @Then i should have a not authorized status
      */
-    public function CheckResponse()
+    public function iShouldHaveANotAuthorizedStatus()
     {
-        if (strpos($this->response, '"status":"OK"') == false) {
+       if (strpos($this->response, 'NOT AUTHORIZED') == false) {
             throw new Exception($this->response);
         }
     }
-
 }
