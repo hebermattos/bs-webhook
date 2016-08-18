@@ -5,5 +5,3 @@ Feature: Boleto account
     And with a invalid token
     When i do a POST against http://bswebhook-com.umbler.net/index.php?_url=/bswebhook
     Then i should have a not authorized status
-
-
