@@ -5,4 +5,5 @@
 
 API phalcon para redirecionar os eventos do [Boleto Simples](https://boletosimples.com.br) 
 
+![umbler-logo]
 (http://static.umbler.com/brand/umbler-logos/umbler-logo-light-bg.png)
