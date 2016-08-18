@@ -73,7 +73,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function iShouldHaveANotAuthorizedStatus()
     {
-       if (strpos($this->response, 'NOT AUTHORIZED') == false) {
+       if (strpos($this->response, 'NOT AUTHORRIZED') == false) {
             throw new Exception($this->response);
         }
     }
