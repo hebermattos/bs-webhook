@@ -31,8 +31,6 @@ $app->post('/bswebhook', function () use ($app) {
     
     $request = new Request();
     
-    $allheaders = $request->getHeaders();
-    
     $header = $request->getHeader('HTTP_X_HUB_SIGNATURE');
     $rawBody = $request->getRawBody();
     $hashedBody = hash_hmac('sha1', $rawBody, $app->config->environment->boletosimpleswebhooksecret);
@@ -47,11 +45,8 @@ $app->post('/bswebhook', function () use ($app) {
     {
         try {
             $client = new Client();
-            $data = $client->request('POST', $app->config->environment->billapiurl,  [
-                'json' => $request->getJsonRawBody(),
-                'Authorization' => ['Basic '.$app->config->environment->billapitoken]
-                ]
-            );
+            $options = ['json' => $request->getJsonRawBody(),  'Authorization' => ['Basic '.$app->config->environment->billapitoken] ];
+            $data = $client->request('POST', $app->config->environment->billapiurl, $options);
         } catch (ServerException $e) {
             $code = 500;
             $status = "INTERNAL SERVER ERROR";
