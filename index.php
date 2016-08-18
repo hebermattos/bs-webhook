@@ -33,7 +33,6 @@ $app->post('/bswebhook', function () use ($app) {
     
     $header = $request->getHeader('HTTP_X_HUB_SIGNATURE');
     $rawBody = $request->getRawBody();
-    echo $rawBody;
     $hashedBody = hash_hmac('sha1', $rawBody, $app->config->environment->secret);
     
     $response = new Response();
