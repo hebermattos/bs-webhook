@@ -46,7 +46,7 @@ $app->post('/bswebhook', function () use ($app) {
         try {
             $client = new Client();
             $options = ['json' => $request->getJsonRawBody(),  'Authorization' => ['Basic '.$app->config->environment->token] ];
-            $data = $client->request('POST', $app->config->environment->url, $options)->getBody();
+            $data = $client->request('POST', $app->config->environment->url, $options)->getBody()->getContents();
         } catch (ServerException $e) {
             $code = 500;
             $status = "INTERNAL SERVER ERROR";
