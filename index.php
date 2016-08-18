@@ -33,7 +33,7 @@ $app->post('/bswebhook', function () use ($app) {
     
     $header = $request->getHeader('HTTP_X_HUB_SIGNATURE');
     $rawBody = $request->getRawBody();
-    $hashedBody = hash_hmac('sha1', $rawBody, $app->config->environment->boletosimpleswebhooksecret);
+    $hashedBody = hash_hmac('sha1', $rawBody, $app->config->environment->secret);
     
     $response = new Response();
     $response->setContentType('application/json');
@@ -45,8 +45,8 @@ $app->post('/bswebhook', function () use ($app) {
     {
         try {
             $client = new Client();
-            $options = ['json' => $request->getJsonRawBody(),  'Authorization' => ['Basic '.$app->config->environment->billapitoken] ];
-            $data = $client->request('POST', $app->config->environment->billapiurl, $options);
+            $options = ['json' => $request->getJsonRawBody(),  'Authorization' => ['Basic '.$app->config->environment->token] ];
+            $data = $client->request('POST', $app->config->environment->url, $options);
         } catch (ServerException $e) {
             $code = 500;
             $status = "INTERNAL SERVER ERROR";
@@ -59,7 +59,7 @@ $app->post('/bswebhook', function () use ($app) {
     }
     else {
         $code = "401";
-        $status = "NOT AUTHORIZED (".$header." x sha=1".$hashedBody.")";
+        $status = "NOT AUTHORIZED";
     }
     
     $response->setJsonContent(
@@ -68,9 +68,7 @@ $app->post('/bswebhook', function () use ($app) {
             'data'   => $data
         )
     );
-    
     $response->setStatusCode($code);
-    
     return $response;
 
 });
