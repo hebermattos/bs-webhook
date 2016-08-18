@@ -60,9 +60,9 @@ class FeatureContext implements Context, SnippetAcceptingContext
             $this->response = $requestResponse->getBody()->getContents();                                  
             
         } catch (ClientException $e) {
-            $this->response = Psr7\str($e->getResponse());
+            $this->response = Psr7\str("CE: ".$e->getResponse());
         } catch (TransferException $e) {
-            $this->response = Psr7\str($e->getResponse());
+            $this->response = Psr7\str("TE: ".$e->getResponse());
         }
     }
 
