@@ -18,13 +18,10 @@ class FeatureContext implements Context, SnippetAcceptingContext
 {
     private $validPayload;
     private $response;
-    
     private $client;
-    private $config;
-
+    
     public function __construct()
     {
-        $this->config = parse_ini_file("config.ini", true);
         $this->client = new Client();
     }
 
