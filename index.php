@@ -24,7 +24,7 @@ $di->set('request', function () {
 });
 
 $di->set('client', function () {
-    return new new Client()
+    return new Client();
 });
 
 $app = new Micro();
