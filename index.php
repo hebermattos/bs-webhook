@@ -19,8 +19,11 @@ $di->set('config', function () {
     return new IniConfig("config.ini");
 });
 
-$app = new Micro();
+$di->set('request', function () {
+    return new Request();
+});
 
+$app = new Micro();
 $app->setDI($di);
 
 $app->get('/', function ()  {
@@ -29,10 +32,8 @@ $app->get('/', function ()  {
 
 $app->post('/bswebhook', function () use ($app) {
     
-    $request = new Request();
-    
-    $header = $request->getHeader('HTTP_X_HUB_SIGNATURE');
-    $rawBody = $request->getRawBody();
+    $header = $app->request->getHeader('HTTP_X_HUB_SIGNATURE');
+    $rawBody = $app->request->getRawBody();
     $hashedBody = hash_hmac('sha1', $rawBody, $app->config->environment->secret);
     
     $response = new Response();
@@ -45,7 +46,7 @@ $app->post('/bswebhook', function () use ($app) {
     {
         try {
             $client = new Client();
-            $options = ['json' => $request->getJsonRawBody(),  'Authorization' => ['Basic '.$app->config->environment->token] ];
+            $options = ['json' => $app->request->getJsonRawBody(),  'Authorization' => ['Basic '.$app->config->environment->token] ];
             $data = $client->request('POST', $app->config->environment->url, $options)->getBody()->getContents();
         } catch (ServerException $e) {
             $code = 500;
