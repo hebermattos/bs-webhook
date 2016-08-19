@@ -6,7 +6,6 @@ require 'ContainerBuilder.php';
 use Phalcon\Mvc\Micro;
 use Phalcon\Http\Response;
 
-use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\Psr7;
