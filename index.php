@@ -39,10 +39,6 @@ $app->before(function () use ($app) {
     return true;
 });
 
-$app->get('/', function ()  {
-    echo 'bswebhook';
-});
-
 $app->post('/bswebhook', function () use ($app) {
     
     $code = "200";
@@ -77,7 +73,6 @@ $app->post('/bswebhook', function () use ($app) {
 
 $app->notFound(function () use ($app) {
     $app->response->setStatusCode(404, "Not Found")->sendHeaders();
-    echo 'page not found';
 });
 
 $app->handle();
