@@ -23,6 +23,7 @@ $app->before(function () use ($app) {
 
     if(strcmp($header, 'sha1='.$hashedBody) != 0)
     {
+        $app->response->setContentType('application/json');
         $app->response->setJsonContent(
             array(
                 'status' => 'NOT AUTHORIZED',
@@ -61,6 +62,7 @@ $app->post('/bswebhook', function () use ($app) {
         $data =  $e->getResponse()->getBody()->getContents();
     }
     
+    $app->response->setContentType('application/json');
     $app->response->setJsonContent(
         array(
             'status' => $status,
