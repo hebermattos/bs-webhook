@@ -8,7 +8,6 @@ use Phalcon\Http\Response;
 
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
-use GuzzleHttp\Psr7;
 
 $di = ContainerBuilder::Build();
 
