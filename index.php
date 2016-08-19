@@ -31,8 +31,6 @@ $app->get('/', function ()  {
 
 $app->post('/bswebhook', function () use ($app) {
     
-    $response = new Response();
-    $response->setContentType('application/json');
     $code = "200";
     $status = 'OK';
     $data = NULL;
@@ -50,14 +48,14 @@ $app->post('/bswebhook', function () use ($app) {
         $data =  $e->getResponse()->getBody()->getContents();
     }
     
-    $response->setJsonContent(
+    $app->response->setJsonContent(
         array(
             'status' => $status,
             'data'   => $data
         )
     );
-    $response->setStatusCode($code);
-    return $response;
+    $app->response->setStatusCode($code);
+    return $app->response;
 
 });
 
