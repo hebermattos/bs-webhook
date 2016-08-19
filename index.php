@@ -5,8 +5,6 @@ require 'ContainerBuilder.php';
 
 use Phalcon\Mvc\Micro;
 use Phalcon\Http\Response;
-use Phalcon\Http\Request;
-use Phalcon\Config\Adapter\Ini as IniConfig;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;

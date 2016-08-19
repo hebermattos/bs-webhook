@@ -1,6 +1,8 @@
 <?php
 
 use Phalcon\Di\FactoryDefault;
+use Phalcon\Http\Request;
+use Phalcon\Config\Adapter\Ini as IniConfig;
 
 class ContainerBuilder 
 {
