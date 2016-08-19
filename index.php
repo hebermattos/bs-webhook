@@ -1,11 +1,11 @@
 <?php
 
 require 'vendor/autoload.php';
+require 'ContainerBuilder.php';
 
 use Phalcon\Mvc\Micro;
 use Phalcon\Http\Response;
 use Phalcon\Http\Request;
-use Phalcon\Di\FactoryDefault;
 use Phalcon\Config\Adapter\Ini as IniConfig;
 
 use GuzzleHttp\Client;
@@ -13,19 +13,7 @@ use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\Psr7;
 
-$di = new FactoryDefault();
-
-$di->set('config', function () {
-    return new IniConfig("config.ini");
-});
-
-$di->set('request', function () {
-    return new Request();
-});
-
-$di->set('client', function () {
-    return new Client();
-});
+$di = ContainerBuilder::Build();
 
 $app = new Micro();
 $app->setDI($di);
