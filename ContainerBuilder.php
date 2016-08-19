@@ -4,7 +4,7 @@ use Phalcon\Di\FactoryDefault;
 
 class ContainerBuilder 
 {
-    public static Build () 
+    public static Build() 
     {
         $di = new FactoryDefault();
 
