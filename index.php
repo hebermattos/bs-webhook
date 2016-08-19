@@ -62,7 +62,7 @@ $app->post('/bswebhook', function () use ($app) {
         )
     );
     $app->response->setStatusCode($code);
-    return $app->response;
+    return json_encode($app->response);
 
 });
 
