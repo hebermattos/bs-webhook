@@ -33,7 +33,7 @@ $app->before(function () use ($app) {
     
         $app->response->setStatusCode(401);
         
-        return false;
+        return $app->response;
     }
     
     return true;
