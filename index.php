@@ -24,7 +24,7 @@ $app->before(function () use ($app) {
     //$code = "401";
     //$status = "NOT AUTHORIZED";
     
-    return strcmp($header, 'sha1='.$hashedBody);
+    return strcmp($header, 'sha1='.$hashedBody) == 0;
 });
 
 $app->get('/', function ()  {
@@ -49,7 +49,7 @@ $app->post('/bswebhook', function () use ($app) {
     } catch (ClientException $e) {
         $code = 400;
         $status = "BAD REQUEST";
-        $data =  Psr7\str($e->getResponse());
+        $data =  $e->getResponse()->getBody()->getContents();
     }
     
     $response->setJsonContent(
