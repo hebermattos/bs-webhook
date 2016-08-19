@@ -22,7 +22,8 @@ $app->before(function () use ($app) {
     $hashedBody = hash_hmac('sha1', $rawBody, $app->config->environment->secret);
 
     if(strcmp($header, 'sha1='.$hashedBody) != 0);
-        throw new Exception("NOT AUTHORIZED");
+        return 'mantega';
+        //throw new Exception("NOT AUTHORIZED");
 });
 
 $app->get('/', function ()  {
