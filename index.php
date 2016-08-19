@@ -23,8 +23,14 @@ $app->before(function () use ($app) {
 
     if(strcmp($header, 'sha1='.$hashedBody) != 0)
     {
-        $app['flashSession']->error("The user isn't authenticated");
-        $app['response']->redirect("/error");
+        $app->response->setJsonContent(
+            array(
+                'status' => 'NOT AUTHORIZED',
+                'data'   => null
+                )
+            );
+    
+        $app->response->setStatusCode(401);
         
         return false;
     }
@@ -61,8 +67,9 @@ $app->post('/bswebhook', function () use ($app) {
             'data'   => $data
         )
     );
+    
     $app->response->setStatusCode($code);
-    return json_encode($app->response);
+    return $app->response;
 
 });
 
