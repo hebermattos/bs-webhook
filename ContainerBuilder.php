@@ -7,23 +7,23 @@ use GuzzleHttp\Client;
 
 class ContainerBuilder 
 {
-    public static function Build() 
+    public static function build() 
     {
-        $di = new FactoryDefault();
+        $diFactory = new FactoryDefault();
 
-        $di->set('config', function () {
+        $diFactory->set('config', function () {
             return new IniConfig("config.ini");
         });
         
-        $di->set('request', function () {
+        $diFactory->set('request', function () {
             return new Request();
         });
         
-        $di->set('client', function () {
+        $diFactory->set('client', function () {
             return new Client();
         });
         
-        return $di;
+        return $diFactory;
     }
 
 }
