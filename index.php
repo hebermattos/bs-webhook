@@ -25,7 +25,8 @@ $app->before(function () use ($app) {
     {
         return false;
     }
-        //throw new Exception("NOT AUTHORIZED");
+    
+    return true;
 });
 
 $app->get('/', function ()  {
