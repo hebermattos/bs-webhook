@@ -31,7 +31,7 @@ $app->before(function () use ($app) {
                 )
             );
     
-        $app->response->setStatusCode(401);
+        $app->response->setStatusCode(401)->sendHeaders();;
         
         return false;
     }
