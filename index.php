@@ -20,11 +20,9 @@ $app->before(function () use ($app) {
     $header = $app->request->getHeader('HTTP_X_HUB_SIGNATURE');
     $rawBody = $app->request->getRawBody();
     $hashedBody = hash_hmac('sha1', $rawBody, $app->config->environment->secret);
-    
-    //$code = "401";
-    //$status = "NOT AUTHORIZED";
-    
-    return strcmp($header, 'sha1='.$hashedBody) == 0;
+
+    if(strcmp($header, 'sha1='.$hashedBody) != 0);
+        throw new Exception("NOT AUTHORIZED");
 });
 
 $app->get('/', function ()  {
