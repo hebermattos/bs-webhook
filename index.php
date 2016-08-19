@@ -23,6 +23,10 @@ $di->set('request', function () {
     return new Request();
 });
 
+$di->set('client', function () {
+    return new new Client()
+});
+
 $app = new Micro();
 $app->setDI($di);
 
@@ -45,9 +49,8 @@ $app->post('/bswebhook', function () use ($app) {
     if(strcmp($header, 'sha1='.$hashedBody) == 0)
     {
         try {
-            $client = new Client();
             $options = ['json' => $app->request->getJsonRawBody(),  'Authorization' => ['Basic '.$app->config->environment->token] ];
-            $data = $client->request('POST', $app->config->environment->url, $options)->getBody()->getContents();
+            $data = $app->client->request('POST', $app->config->environment->url, $options)->getBody()->getContents();
         } catch (ServerException $e) {
             $code = 500;
             $status = "INTERNAL SERVER ERROR";
