@@ -31,7 +31,10 @@ $app->before(function () use ($app) {
                 )
             );
     
-        $app->response->setStatusCode(401)->sendHeaders();;
+        $app->response->setStatusCode(401);
+        
+        $app->flashSession->error("The user isn't authenticated");
+        $app->response->redirect("/")->sendHeaders();
         
         return false;
     }
