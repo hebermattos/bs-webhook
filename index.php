@@ -7,7 +7,8 @@ use Phalcon\Mvc\Micro;
 
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
-use GuzzleHttp\Psr7\Response
+use GuzzleHttp\Exception\RequestException;
+use Psr\Http\Message\ResponseInterface;
 
 $di = ContainerBuilder::Build();
 
