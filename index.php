@@ -4,6 +4,7 @@ require 'vendor/autoload.php';
 require 'ContainerBuilder.php';
 
 use Phalcon\Mvc\Micro;
+use Phalcon\Http\Request;
 
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
@@ -43,9 +44,9 @@ $app->post('/bswebhook', function () use ($app) {
     
     $promise = $client->sendAsync($request)->then(
         function ($response) {
-            $response->setJsonContent(array('status' => 'OK','data' => $response->getBody()->getContents()));
-            $response->setStatusCode(200);
-            return $response;
+            $app->response->setJsonContent(array('status' => 'OK','data' => $response->getBody()->getContents()));
+            $app->response->setStatusCode(200);
+            return $app->response;
         },
         function ($e) {
             $app->response->setJsonContent(array('status' => 'ERRO','data' => $e->getResponse()->getBody()->getContents()));

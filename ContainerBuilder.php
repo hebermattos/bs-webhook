@@ -1,7 +1,6 @@
 <?php
 
 use Phalcon\Di\FactoryDefault;
-use Phalcon\Http\Request;
 use Phalcon\Http\Response;
 use Phalcon\Config\Adapter\Ini as IniConfig;
 use GuzzleHttp\Client;
@@ -14,10 +13,6 @@ class ContainerBuilder
 
         $diFactory->setShared('config', function () {
             return new IniConfig("config.ini");
-        });
-        
-        $diFactory->setShared('request', function () {
-            return new Request();
         });
         
         $diFactory->setShared('client', function () {
