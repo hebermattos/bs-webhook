@@ -42,7 +42,7 @@ $app->post('/bswebhook', function () use ($app) {
     $options = ['json' => $app->request->getJsonRawBody(),  'Authorization' => ['Basic '.$app->config->environment->token] ];
     $request = new Request('POST', $app->config->environment->url, $options);
     
-    $promise = $client->sendAsync($request)->then(
+    $promise = $app->client->sendAsync($request)->then(
         function ($response) {
             $app->response->setJsonContent(array('status' => 'OK','data' => $response->getBody()->getContents()));
             $app->response->setStatusCode(200);
