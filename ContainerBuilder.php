@@ -10,19 +10,17 @@ class ContainerBuilder
 {
     public static function build() 
     {
-        public static $config = new IniConfig("config.ini");
-        
         $diFactory = new FactoryDefault();
 
-        $diFactory->set('config', function () {
-            return $config;
+        $diFactory->setShared('config', function () {
+            return new IniConfig("config.ini");
         });
         
-        $diFactory->set('request', function () {
+        $diFactory->setShared('request', function () {
             return new Request();
         });
         
-        $diFactory->set('client', function () {
+        $diFactory->setShared('client', function () {
             return new Client();
         });
         
