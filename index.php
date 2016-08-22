@@ -9,6 +9,7 @@ use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Message\ResponseInterface;
+use Phalcon\Http\Response;
 
 $di = ContainerBuilder::Build();
 
@@ -43,7 +44,8 @@ $app->post('/bswebhook', function () use ($app) {
     $options = ['json' => $app->request->getJsonRawBody(),  'Authorization' => ['Basic '.$app->config->environment->token] ];
     $promise = $app->client->requestAsync('POST', $app->config->environment->url, $options);
      
-    $result = $app->response;
+    $result = new response();
+    $result->setContentType('application/json');
                   
     $promise->then(
         function (ResponseInterface $response) {

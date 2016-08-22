@@ -1,7 +1,6 @@
 <?php
 
 use Phalcon\Di\FactoryDefault;
-use Phalcon\Http\Response;
 use Phalcon\Config\Adapter\Ini as IniConfig;
 use GuzzleHttp\Client;
 
@@ -17,12 +16,6 @@ class ContainerBuilder
         
         $diFactory->setShared('client', function () {
             return new Client();
-        });
-        
-         $diFactory->set('response', function () {
-            $response =  new response();
-            $response->setContentType('application/json');
-            return $response;
         });
 
         return $diFactory;
