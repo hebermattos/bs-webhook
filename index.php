@@ -43,26 +43,25 @@ $app->post('/bswebhook', function () use ($app) {
  
     $options = ['json' => $app->request->getJsonRawBody(),  'Authorization' => ['Basic '.$app->config->environment->token] ];
     $promise = $app->client->requestAsync('POST', $app->config->environment->url, $options);
-            
-    $result = new Response();
                   
     $promise->then(
         function (ResponseInterface $response) {
-            $result->setContentType('application/json');
+            $result = new Response();
             $result->setJsonContent(array('status' => 'OK','data' => $response->getBody()->getContents()));
             $result->setStatusCode(200);
-            return $result;
+            $app->reponse = $result;
         },
         function (RequestException  $e) {
-            $result->setContentType('application/json');
+            $result = new Response();
             $result->setJsonContent(array('status' => 'ERRO','data' => $e->getResponse()->getBody()->getContents()));
             $result->setStatusCode(500);
-            return $result;          
+            $app->reponse = $result;        
         });
         
     $promise->wait();
     
-    return $result;
+    $app->reponse->setContentType('application/json');
+    return $app->reponse;
 });
 
 $app->get('/', function () {
