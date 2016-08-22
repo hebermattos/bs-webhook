@@ -45,7 +45,7 @@ $app->post('/bswebhook', function () use ($app) {
     $options = ['json' => $app->request->getJsonRawBody(),  'Authorization' => ['Basic '.$app->config->environment->token] ];
     $promise = $app->client->requestAsync('POST', $app->config->environment->url, $options)->wait();
     
-    var_dump($promise);
+    var_dump($promise->getBody()->getContents());
         
     $promise->then(
         function (ResponseInterface $res) {
