@@ -41,19 +41,25 @@ $app->post('/bswebhook', function () use ($app) {
     $code = "200";
     $status = 'OK';
     $data = NULL;
-   
-    try {
-        $options = ['json' => $app->request->getJsonRawBody(),  'Authorization' => ['Basic '.$app->config->environment->token] ];
-        $data = $app->client->request('POST', $app->config->environment->url, $options)->getBody()->getContents();
-    } catch (ServerException $e) {
-        $code = 500;
-        $status = "INTERNAL SERVER ERROR";
-        $data =  $e->getResponse()->getBody()->getContents();
-    } catch (ClientException $e) {
-        $code = 400;
-        $status = "BAD REQUEST";
-        $data =  $e->getResponse()->getBody()->getContents();
-    }
+  
+    $options = ['json' => $app->request->getJsonRawBody(),  'Authorization' => ['Basic '.$app->config->environment->token] ];
+    $promise = $app->client->requestAsync('POST', $app->config->environment->url, $options)->getBody()->getContents();
+        
+    $promise->then(
+        function (ResponseInterface $res) {
+            $data = $res;
+        },
+        function (ServerException $res) {
+            $code = 500;
+            $status = "INTERNAL SERVER ERROR";
+            $data =  $e->getResponse()->getBody()->getContents();
+        },
+        function (ClientException $e) {
+            $code = 400;
+            $status = "BAD REQUEST";
+            $data =  $e->getResponse()->getBody()->getContents();
+        }
+    );
     
     $app->response->setJsonContent(
         array(
