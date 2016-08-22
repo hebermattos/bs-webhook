@@ -67,6 +67,10 @@ $app->post('/bswebhook', function () use ($app) {
 
 });
 
+$app->get('/', function () {
+    echo 'bswebhook';
+});
+
 $app->notFound(function () use ($app) {
     $app->response->setStatusCode(404, "Not Found")->sendHeaders();
 });
