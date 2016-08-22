@@ -38,33 +38,31 @@ $app->before(function () use ($app) {
 
 $app->post('/bswebhook', function () use ($app) {
     
-    $code = "200";
-    $status = 'OK';
     $data = NULL;
-   
-    try {
-        $options = ['json' => $app->request->getJsonRawBody(),  'Authorization' => ['Basic '.$app->config->environment->token] ];
-        $data = $app->client->requestAsync('POST', $app->config->environment->url, $options)->wait();
-        var_dump($data);
-    } catch (ServerException $e) {
-        $code = 500;
-        $status = "INTERNAL SERVER ERROR";
-        $data =  $e->getResponse()->getBody()->getContents();
-    } catch (ClientException $e) {
-        $code = 400;
-        $status = "BAD REQUEST";
-        $data =  $e->getResponse()->getBody()->getContents();
-    }
-    
-    $app->response->setJsonContent(
-        array(
-            'status' => $status,
-            'data'   => $data
-        )
-    );
-    
-    $app->response->setStatusCode($code);
-    return $app->response;
+ 
+    $options = ['json' => $app->request->getJsonRawBody(),  'Authorization' => ['Basic '.$app->config->environment->token] ];
+    $promise = $app->client->requestAsync('POST', $app->config->environment->url, $options);
+                  
+    $promise->then(
+        function (ResponseInterface $res) {
+            $status = "OK";
+            $data = $res->getBody()->getContents();
+            $app->response->setJsonContent(array('status' => $status,'data' => $data));
+            $app->response->setStatusCode(200);
+            return $app->response;
+        }, function (ServerException $e) {
+            $status = "INTERNAL SERVER ERROR";
+            $data =  $e->getResponse()->getBody()->getContents();
+            $app->response->setJsonContent(array('status' => $status,'data' => $data));
+            $app->response->setStatusCode(500);
+            return $app->response;          
+        }, function (ClientException $e) {
+            $status = "BAD REQUEST";
+            $data =  $e->getResponse()->getBody()->getContents();
+            $app->response->setJsonContent(array('status' => $status,'data' => $data));
+            $app->response->setStatusCode(400);
+            return $app->response;
+        });
 
 });
 
