@@ -2,6 +2,7 @@
 
 use Phalcon\Di\FactoryDefault;
 use Phalcon\Http\Request;
+use Phalcon\Http\Response;
 use Phalcon\Config\Adapter\Ini as IniConfig;
 use GuzzleHttp\Client;
 
@@ -23,6 +24,12 @@ class ContainerBuilder
             return new Client();
         });
         
+         $diFactory->set('client', function () {
+            $response =  new response();
+            $response->setContentType('application/json');
+            return $response;
+        });
+
         return $diFactory;
     }
 
