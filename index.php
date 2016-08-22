@@ -43,7 +43,7 @@ $app->post('/bswebhook', function () use ($app) {
                   
     $promise->then(
         function (ResponseInterface $response) {
-            $app->response->setJsonContent(array('status' => 'OK','data' => $res->getBody()->getContents()));
+            $app->response->setJsonContent(array('status' => 'OK','data' => $response->getBody()->getContents()));
             $app->response->setStatusCode(200);
             return $app->response;
         },
