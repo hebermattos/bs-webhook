@@ -10,10 +10,12 @@ class ContainerBuilder
 {
     public static function build() 
     {
+        public static $config = new IniConfig("config.ini");
+        
         $diFactory = new FactoryDefault();
 
         $diFactory->set('config', function () {
-            return new IniConfig("config.ini");
+            return $config;
         });
         
         $diFactory->set('request', function () {
