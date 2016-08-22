@@ -24,7 +24,7 @@ class ContainerBuilder
             return new Client();
         });
         
-         $diFactory->set('client', function () {
+         $diFactory->set('response', function () {
             $response =  new response();
             $response->setContentType('application/json');
             return $response;
