@@ -47,7 +47,7 @@ $app->post('/bswebhook', function () use ($app) {
         
     $promise->then(
         function (ResponseInterface $res) {
-            $data = $res;
+            $data = $res->getBody()->getContents();
         },
         function (ServerException $res) {
             $code = 500;
