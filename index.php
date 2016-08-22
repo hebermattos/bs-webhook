@@ -43,8 +43,7 @@ $app->post('/bswebhook', function () use ($app) {
     $options = ['json' => $app->request->getJsonRawBody(),  'Authorization' => ['Basic '.$app->config->environment->token] ];
     $promise = $app->client->requestAsync('POST', $app->config->environment->url, $options);
                   
-    $promise
-          ->then(function (ResponseInterface $res) {
+    $promise->then(function (ResponseInterface $res) {
             $status = "OK";
             $data = $res->getBody()->getContents();
             $app->response->setJsonContent(array('status' => $status,'data' => $data));
@@ -56,16 +55,7 @@ $app->post('/bswebhook', function () use ($app) {
             $app->response->setJsonContent(array('status' => $status,'data' => $data));
             $app->response->setStatusCode(500);
             return $app->response;          
-        })->then(function (ClientException $e) {
-            $status = "BAD REQUEST";
-            $data =  $e->getResponse()->getBody()->getContents();
-            $app->response->setJsonContent(array('status' => $status,'data' => $data));
-            $app->response->setStatusCode(400);
-            return $app->response;
         });
-        
-   var_dump($promise);
-
 });
 
 $app->get('/', function () {
