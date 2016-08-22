@@ -43,12 +43,14 @@ $app->post('/bswebhook', function () use ($app) {
     $options = ['json' => $app->request->getJsonRawBody(),  'Authorization' => ['Basic '.$app->config->environment->token] ];
     $promise = $app->client->requestAsync('POST', $app->config->environment->url, $options);
                   
-    $promise->then(function ($response) {
+    $promise->then(
+        function ($response) {
             $response->setJsonContent(array('status' => 'OK','data' => $res->getBody()->getContents()));
             $response->setStatusCode(200);
             return $response;
-        })->then(function (ServerException $e) {
-            $app->response->setJsonContent(array('status' => 'INTERNAL SERVER ERROR','data' => $e->getResponse()->getBody()->getContents()));
+        },
+        function ($e) {
+            $app->response->setJsonContent(array('status' => 'ERRO','data' => $e->getResponse()->getBody()->getContents()));
             $app->response->setStatusCode(500);
             return $app->response;          
         });
