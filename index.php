@@ -66,7 +66,7 @@ $app->post('/bswebhook', function () use ($app) {
     $app->response->setJsonContent(json_encode($body));
     $app->response->setStatusCode($response->getStatusCode());
     
-    return $app->response;
+    //return $app->response;
 });
 
 $app->get('/', function () {
