@@ -60,7 +60,6 @@ $app->post('/bswebhook', function () use ($app) {
             'data'   => $data
         )
     );
-    
     $app->response->setStatusCode($code);
     return $app->response;
 
