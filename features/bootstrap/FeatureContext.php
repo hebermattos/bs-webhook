@@ -35,11 +35,14 @@ class FeatureContext implements Context, SnippetAcceptingContext
     }   
     
     /**
-     * @Given with a invalid token
+     * @Given with a :arg token
      */
-    public function withAInvalidToken()
+    public function withAToken($arg)
     {
-        $this->token = "adwe4124eua9ry329847b98347234";
+        if($arg == 'invalid')
+            $this->token = "adwe4124eua9ry329847b98347234";
+        if($arg == 'valid')
+            $this->token = "adwe4124eua9ry329847b98347234";
     }
     
     /**
@@ -69,12 +72,13 @@ class FeatureContext implements Context, SnippetAcceptingContext
     }
 
     /**
-     * @Then i should have a not authorized status
+     * @Then i should have :arg in response
      */
-    public function iShouldHaveANotAuthorizedStatus()
+    public function iShouldHaveAsResponse($arg)
     {
-       if (strpos($this->response, 'NOT AUTHORIZED') == false) {
+       if (strpos($this->response, $arg) == false) {
             throw new Exception($this->response);
         }
     }
+
 }
