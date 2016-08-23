@@ -53,7 +53,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
     {
         try
         {
-            $request = new Request('POST', 'http://rcbswebhook-com.umbler.net/index.php?_url=/bswebhook')
+            $request = new Request('POST', 'http://rcbswebhook-com.umbler.net/index.php?_url=/bswebhook');
             $request->setBody($this->validPayload, 'application/json');
             
             $response = $this->client->send($request);
