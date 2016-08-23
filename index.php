@@ -48,7 +48,7 @@ $app->post('/bswebhook', function () use ($app) {
     } catch (ConnectException $e) {
         $code = 404;
         $status = "NOT FOUND";
-        $data =  $e->getResponse()->getBody()->getContents();
+        $data =  $e->getResponse();
     } catch (ClientException $e) {
         $code = 400;
         $status = "BAD REQUEST";
