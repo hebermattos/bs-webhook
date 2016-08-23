@@ -19,7 +19,7 @@ $app->before(function () use ($app) {
     $rawBody = $app->request->getRawBody();
     $hashedBody = hash_hmac('sha1', $rawBody, $app->config->environment->secret);
 
-    if(strcmp($header, 'sha1='.$hashedBody) != 0 && $app->config->environment->type == 'production')
+    if(strcmp($header, 'sha1='.$hashedBody) != 0)
     {
         $app->response->setJsonContent(array('status' => 'NOT AUTHORIZED', 'data'=> null));
         $app->response->setStatusCode(401);

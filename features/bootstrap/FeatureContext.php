@@ -10,7 +10,6 @@ use Behat\Gherkin\Node\TableNode;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7;
 use Phalcon\Config\Adapter\Ini as IniConfig;
-use GuzzleHttp\Psr7\Request;
 
 /**
  * Defines application features from the specific context.
@@ -43,7 +42,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
         if($arg == 'INVALID')
             $this->token = "adwe4124eua9ry329847b98347234";
         if($arg == 'VALID')
-            $this->token = "a12312312esadasdasd123123asdasd";
+            $this->token = "sha1=745187d4669d44dba800abadb127c6ce777b8a00";
     }
     
     /**
@@ -53,12 +52,15 @@ class FeatureContext implements Context, SnippetAcceptingContext
     {
         try
         {
-            $request = new Request('POST', 'http://rcbswebhook-com.umbler.net/index.php?_url=/bswebhook');
-            $request->setBody($this->validPayload, 'application/json');
+            $requestResponse = $this->client->request('POST', 'http://rcbswebhook-com.umbler.net/index.php?_url=/bswebhook',  [
+                    'json' => $this->validPayload,
+                    'headers'  => [
+                        'X_Hub_Signature' => $this->token
+                    ]
+                ]
+            );
             
-            $response = $this->client->send($request);
-
-            $this->response = $response->getBody()->getContents();                                  
+            $this->response = $requestResponse->getBody()->getContents();                                  
             
         } catch (ClientException $e) {
             $this->response = Psr7\str("CE: ".$e->getResponse());
