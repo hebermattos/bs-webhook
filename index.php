@@ -7,7 +7,7 @@ use Phalcon\Mvc\Micro;
 
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
-use GuzzleHttp\Exception\ConnectException
+use GuzzleHttp\Exception\ConnectException;
 
 $di = ContainerBuilder::Build();
 
