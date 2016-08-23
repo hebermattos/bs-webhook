@@ -53,7 +53,7 @@ $app->post('/bswebhook', function () use ($app) {
             $result->setStatusCode(200);
             $result->setContentType('application/json');
             $data = $result;
-            echo $data;
+            var_dump($data);
         },
         function (RequestException  $e) {
             $result = new Response();
