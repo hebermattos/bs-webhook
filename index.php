@@ -19,7 +19,7 @@ $app->before(function () use ($app) {
     $rawBody = $app->request->getRawBody();
     $hashedBody = hash_hmac('sha1', $rawBody, $app->config->environment->secret);
 
-    $data = 'h: '.$header.' sha1='.$hashedBody.' hs: '.$app->request->getHeaders();
+    $data = 'h: '.$header.' sha1='.$hashedBody.' hs: '.implode(",", $app->request->getHeaders());
 
     if(strcmp($header, 'sha1='.$hashedBody) != 0)
     {
