@@ -62,6 +62,10 @@ $app->post('/bswebhook', function () use ($app) {
         
     $response = $promise->wait();
     
+    var_dump($response);
+    var_dump($app->response);
+    
+    
     $response->send();
 });
 
