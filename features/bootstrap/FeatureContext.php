@@ -39,9 +39,9 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function withAToken($arg)
     {
-        if($arg == 'INVALID')
+        if($arg == "INVALID")
             $this->token = "adwe4124eua9ry329847b98347234";
-        if($arg == 'VALID')
+        if($arg == "VALID")
             $this->token = "sha1=745187d4669d44dba800abadb127c6ce777b8a00";
     }
     
@@ -55,7 +55,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
             $requestResponse = $this->client->request('POST', 'http://rcbswebhook-com.umbler.net/index.php?_url=/bswebhook',  [
                     'json' => $this->validPayload,
                     'headers'  => [
-                        'HTTP_X_HUB_SIGNATURE' => $this->token
+                        'X_HUB_SIGNATURE' => $this->token
                     ]
                 ]
             );
