@@ -60,7 +60,7 @@ $app->post('/bswebhook', function () use ($app) {
         
     $response = $promise->wait();
 
-    echo json_decode($response->getBody());
+    echo json_encode($response->getBody());
 
     $app->response->setContentType('application/json');
     $app->response->setJsonContent(json_encode($body));
