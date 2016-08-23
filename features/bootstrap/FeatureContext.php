@@ -10,6 +10,7 @@ use Behat\Gherkin\Node\TableNode;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7;
 use Phalcon\Config\Adapter\Ini as IniConfig;
+use GuzzleHttp\Psr7\Request;
 
 /**
  * Defines application features from the specific context.
