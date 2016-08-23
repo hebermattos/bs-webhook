@@ -62,11 +62,11 @@ $app->post('/bswebhook', function () use ($app) {
 
     var_dump($response);
 
-    $app->response->setContentType('application/json');
-    $app->response->setJsonContent($response->getBody()->getContents());
-    $app->response->setStatusCode($response->getStatusCode());
+    //$app->response->setContentType('application/json');
+    //$app->response->setJsonContent($response->getBody()->getContents());
+    //$app->response->setStatusCode($response->getStatusCode());
     
-    return $app->response;
+    //return $app->response;
 });
 
 $app->get('/', function () {
