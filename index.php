@@ -62,7 +62,7 @@ $app->post('/bswebhook', function () use ($app) {
         
     $response = $promise->wait();
     
-    return $response;
+    $response->send();
 });
 
 $app->get('/', function () {
@@ -70,7 +70,6 @@ $app->get('/', function () {
 });
 
 $app->notFound(function () use ($app) {
-    $app->response->setStatusCode(404, "Not Found")->sendHeaders();
 });
 
 $app->handle();
