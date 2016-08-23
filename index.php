@@ -38,7 +38,7 @@ $app->before(function () use ($app) {
 
 $app->post('/bswebhook', function () use ($app) {
     
-    $code = "200";
+    $code = "201";
     $status = 'OK';
     $data = NULL;
    
