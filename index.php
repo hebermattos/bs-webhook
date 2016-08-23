@@ -54,7 +54,7 @@ $app->post('/bswebhook', function () use ($app) {
             $app->response->setStatusCode(500);
         });
         
-    $response = $promise->wait();
+    $promise->wait();
 
     $app->response->setContentType('application/json');
     return $app->response;
