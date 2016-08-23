@@ -46,17 +46,24 @@ $app->post('/bswebhook', function () use ($app) {
 
     $promise->then(
         function (ResponseInterface $response) {
-            $app->response->setJsonContent(array('status' => 'OK','data' => $response->getBody()->getContents()));
-            $app->response->setStatusCode(200);
+            $result = new Response();
+            $result->setJsonContent(array('status' => 'OK','data' => $response->getBody()->getContents()));
+            $result->setStatusCode(200);
+            return $result;
         },
-        function (RequestException $e) {
-            $app->response->setJsonContent(array('status' => 'ERRO','data' => $e->getResponse()->getBody()->getContents()));
-            $app->response->setStatusCode(500);
+        function (RequestException  $e) {
+            $result = new Response();
+            $result->setJsonContent(array('status' => 'ERRO','data' => $e->getResponse()->getBody()->getContents()));
+            $result->setStatusCode(500);
+            return $result; 
         });
         
-    $promise->wait();
+    $response = $promise->wait();
 
     $app->response->setContentType('application/json');
+    $app->response->setJsonContent($response->getBody());
+    $app->response->setStatusCode(500);
+    
     return $app->response;
 });
 
