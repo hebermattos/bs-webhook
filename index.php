@@ -50,15 +50,14 @@ $app->post('/bswebhook', function () use ($app) {
             $result->setJsonContent(array('status' => 'OK','data' => $response->getBody()->getContents()));
             $result->setStatusCode(200);
             $result->setContentType('application/json');
-            $data = $result;
-            var_dump($data);
+            return $result;
         },
         function (RequestException  $e) {
             $result = new Response();
             $result->setJsonContent(array('status' => 'ERRO','data' => $e->getResponse()->getBody()->getContents()));
             $result->setStatusCode(500);
             $result->setContentType('application/json');
-            $data = $result;     
+            return $result; 
         });
         
     $promise->wait();
