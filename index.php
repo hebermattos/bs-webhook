@@ -21,12 +21,7 @@ $app->before(function () use ($app) {
 
     if(strcmp($header, 'sha1='.$hashedBody) != 0)
     {
-        $app->response->setJsonContent(
-            array(
-                'status' => 'NOT AUTHORIZED',
-                'data'   => null
-                )
-            );
+        $app->response->setJsonContent(array('status' => 'NOT AUTHORIZED','data'=> null));
         $app->response->setStatusCode(401);
         $app->response->send();
         
@@ -48,6 +43,10 @@ $app->post('/bswebhook', function () use ($app) {
     } catch (ServerException $e) {
         $code = 500;
         $status = "INTERNAL SERVER ERROR";
+        $data =  $e->getResponse()->getBody()->getContents();
+    } catch (ConnectException $e) {
+        $code = 404;
+        $status = "NOT FOUND";
         $data =  $e->getResponse()->getBody()->getContents();
     } catch (ClientException $e) {
         $code = 400;
