@@ -7,9 +7,6 @@ use Phalcon\Mvc\Micro;
 
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
-use GuzzleHttp\Exception\RequestException;
-use Psr\Http\Message\ResponseInterface;
-use Phalcon\Http\Response;
 
 $di = ContainerBuilder::Build();
 
@@ -40,32 +37,34 @@ $app->before(function () use ($app) {
 });
 
 $app->post('/bswebhook', function () use ($app) {
- 
-    $options = ['json' => $app->request->getJsonRawBody(),  'Authorization' => ['Basic '.$app->config->environment->token] ];
-    $promise = $app->client->requestAsync('POST', $app->config->environment->url, $options);
-
-    $promise->then(
-        function (ResponseInterface $response) {
-            $result = new Response();
-            $result->setJsonContent(array('status' => 'OK','data' => $response->getBody()->getContents()));
-            $result->setStatusCode(200);
-            return $result;
-        },
-        function (RequestException  $e) {
-            $result = new Response();
-            $result->setJsonContent(array('status' => 'ERRO','data' => $e->getResponse()->getBody()->getContents()));
-            $result->setStatusCode(500);
-            return $result; 
-        });
-        
-    $response = $promise->wait();
-
-    echo $response->getBody();
-
-    $app->response->setContentType('application/json');
-    $app->response->setStatusCode($response->getStatusCode());
     
+    $code = "200";
+    $status = 'OK';
+    $data = NULL;
+   
+    try {
+        $options = ['json' => $app->request->getJsonRawBody(),  'Authorization' => ['Basic '.$app->config->environment->token] ];
+        $data = $app->client->request('POST', $app->config->environment->url, $options)->getBody()->getContents();
+    } catch (ServerException $e) {
+        $code = 500;
+        $status = "INTERNAL SERVER ERROR";
+        $data =  $e->getResponse()->getBody()->getContents();
+    } catch (ClientException $e) {
+        $code = 400;
+        $status = "BAD REQUEST";
+        $data =  $e->getResponse()->getBody()->getContents();
+    }
+    
+    $app->response->setJsonContent(
+        array(
+            'status' => $status,
+            'data'   => $data
+        )
+    );
+    
+    $app->response->setStatusCode($code);
     return $app->response;
+
 });
 
 $app->get('/', function () {
@@ -73,6 +72,7 @@ $app->get('/', function () {
 });
 
 $app->notFound(function () use ($app) {
+    $app->response->setStatusCode(404, "Not Found")->sendHeaders();
 });
 
 $app->handle();
