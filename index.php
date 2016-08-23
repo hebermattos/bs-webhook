@@ -19,9 +19,11 @@ $app->before(function () use ($app) {
     $rawBody = $app->request->getRawBody();
     $hashedBody = hash_hmac('sha1', $rawBody, $app->config->environment->secret);
 
+    $data = $header.' sha1='.$hashedBody;
+
     if(strcmp($header, 'sha1='.$hashedBody) != 0)
     {
-        $app->response->setJsonContent(array('status' => 'NOT AUTHORIZED','data'=> $header." sha1=".$hashedBody));
+        $app->response->setJsonContent(array('status' => 'NOT AUTHORIZED', 'data'=> $data));
         $app->response->setStatusCode(401);
         $app->response->send();
         
