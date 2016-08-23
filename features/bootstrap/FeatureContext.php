@@ -42,7 +42,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
         if($arg == 'invalid')
             $this->token = "adwe4124eua9ry329847b98347234";
         if($arg == 'valid')
-            $this->token = "adwe4124eua9ry329847b98347234";
+            $this->token = "a12312312esadasdasd123123asdasd";
     }
     
     /**
