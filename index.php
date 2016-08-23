@@ -60,7 +60,7 @@ $app->post('/bswebhook', function () use ($app) {
             return $result; 
         });
         
-    return $promise->wait();
+    var_dump($promise->wait());
 });
 
 $app->get('/', function () {
