@@ -53,8 +53,6 @@ $app->post('/bswebhook', function () use ($app) {
         $app->response->setStatusCode(400);
     }
     
-    var_dump($app->response); 
-    
     return $app->response;
 });
 
