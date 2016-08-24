@@ -22,7 +22,7 @@ $app->before(function () use ($app) {
 
     if(strcmp($header, 'sha1='.$hashedBody) != 0)
     {
-        $app->response->setJsonContent(array('status' => 'NOT AUTHORIZED', 'data'=> $header));
+        $app->response->setJsonContent(array('status' => 'NOT AUTHORIZED', 'data'=> null));
         $app->response->setStatusCode(401);
         $app->response->send();
         
