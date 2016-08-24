@@ -33,30 +33,25 @@ $app->before(function () use ($app) {
 });
 
 $app->post('/bswebhook', function () use ($app) {
-    
-    $code = "201";
-    $status = 'OK';
-    $data = NULL;
-   
+
     try {
+        
         $options = ['json' => $app->request->getJsonRawBody(),  'Authorization' => ['Basic '.$app->config->environment->token] ];
         $data = $app->client->request('POST', $app->config->environment->url, $options)->getBody()->getContents();
+        
+        $app->response->setJsonContent(array('status' => "OK", 'data' => $data));
+        $app->response->setStatusCode(201);
+        
     } catch (ServerException $e) {
-        $code = 500;
-        $status = "INTERNAL SERVER ERROR";
-        $data =  $e->getResponse()->getBody()->getContents();
+        $app->response->setJsonContent(array('status' => "INTERNAL SERVER ERROR", 'data' => $e->getResponse()->getBody()->getContents()));
+        $app->response->setStatusCode(500);
     } catch (ConnectException $e) {
-        $code = 404;
-        $status = "NOT FOUND";
-        $data =  $e->getResponse();
+        $app->response->setJsonContent(array('status' => "NOT FOUND", 'data' => $e->getResponse()));
+        $app->response->setStatusCode(404);
     } catch (ClientException $e) {
-        $code = 400;
-        $status = "BAD REQUEST";
-        $data =  $e->getResponse()->getBody()->getContents();
+        $app->response->setJsonContent(array('status' => "BAD REQUEST", 'data' => $e->getResponse()->getBody()->getContents()));
+        $app->response->setStatusCode(400);
     }
-    
-    $app->response->setJsonContent(array('status' => $status, 'data' => $data));
-    $app->response->setStatusCode($code);
     
     return $app->response;
 });
